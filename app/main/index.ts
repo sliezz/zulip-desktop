@@ -210,7 +210,7 @@ function createMainWindow(): BrowserWindow {
 
   const allowNtlmCredentialsForDomains = EnterpriseUtil.getConfigItem(
     "allowNtlmCredentialsForDomains",
-    []
+    [],
   );
   for (const domain of allowNtlmCredentialsForDomains) {
     ses.allowNTLMCredentialsForDomains(domain);
