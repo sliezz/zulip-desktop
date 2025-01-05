@@ -23,6 +23,8 @@ import * as t from "../common/translation-util.js";
 import type {RendererMessage} from "../common/typed-ipc.js";
 import type {MenuProperties} from "../common/types.js";
 
+import * as EnterpriseUtil from "../common/enterprise-util.js";
+
 import {appUpdater, shouldQuitForUpdate} from "./autoupdater.js";
 import * as BadgeSettings from "./badge-settings.js";
 import handleExternalLink from "./handle-external-link.js";
@@ -206,6 +208,11 @@ function createMainWindow(): BrowserWindow {
 
   const ses = session.fromPartition("persist:webviewsession");
   ses.setUserAgent(`ZulipElectron/${app.getVersion()} ${ses.getUserAgent()}`);
+
+  const allowNTLMCredentialsForDomains = EnterpriseUtil.getConfigItem("allowNTLMCredentialsForDomains", []);
+  for (const url of allowNTLMCredentialsForDomains) {
+    ses.allowNTLMCredentialsForDomains(url)
+  }
 
   function configureSpellChecker() {
     const enable = ConfigUtil.getConfigItem("enableSpellchecker", true);
