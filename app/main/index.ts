@@ -209,9 +209,9 @@ function createMainWindow(): BrowserWindow {
   ses.setUserAgent(`ZulipElectron/${app.getVersion()} ${ses.getUserAgent()}`);
 
   const allowNtlmCredentialsForDomains = EnterpriseUtil.getConfigItem(
-      "allowNtlmCredentialsForDomains",
-      []
-    );
+    "allowNtlmCredentialsForDomains",
+    []
+  );
   for (const domain of allowNtlmCredentialsForDomains) {
     ses.allowNTLMCredentialsForDomains(domain);
   }
